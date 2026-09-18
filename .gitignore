@@ -7,3 +7,4 @@ logs/
 .env
 config.json
 .DS_Store
+index-*.js
