@@ -1,0 +1,19 @@
+{
+  "id": "example-time-tool",
+  "name": "时间工具（示例插件）",
+  "version": "1.0.0",
+  "description": "演示插件系统：为 LLM Agent 提供查询当前时间的 Function Calling 工具",
+  "main": "index.js",
+  "tools": [
+    {
+      "name": "get_current_time",
+      "description": "获取当前日期与时间",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "timezone": { "type": "string", "description": "IANA 时区，如 Asia/Shanghai" }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "name": "live2d-desktop-assistant",
+  "version": "1.0.0",
+  "description": "Live2D 桌面助手 - 基于 Live2D Cubism 渲染引擎与 LLM Agent 智能交互的跨平台桌面伴侣应用",
+  "main": "dist/main/index.js",
+  "author": "Live2D Assistant Team",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "postinstall": "node scripts/patch-nsis-uninstaller.mjs",
+    "dev": "node scripts/dev.mjs",
+    "dev:web": "vite",
+    "build:web": "vite build",
+    "build:main": "node scripts/build-main.mjs",
+    "build": "npm run build:web && npm run build:main",
+    "start": "npm run build && electron .",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "gen:icon": "node scripts/gen-icon.mjs",
+    "dist": "npm run build && electron-builder",
+    "dist:linux": "npm run build && electron-builder --linux",
+    "dist:win": "npm run build && electron-builder --win",
+    "dist:mac": "npm run build && electron-builder --mac"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^24.13.5",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^5.0.0",
+    "cross-env": "^10.0.0",
+    "electron": "^44.4.1",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.25.0",
+    "i18next": "^26.4.2",
+    "msedge-tts": "^2.0.7",
+    "openai": "^7.15.0",
+    "pixi-live2d-display": "^0.4.0",
+    "pixi.js": "^6.5.10",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^17.0.14",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.0",
+    "vite": "^7.3.6"
+  },
+  "build": {
+    "appId": "com.live2d.assistant",
+    "productName": "Live2D Desktop Assistant",
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "assets",
+        "to": "assets"
+      },
+      {
+        "from": "plugins",
+        "to": "plugins"
+      }
+    ],
+    "asarUnpack": [
+      "**/node_modules/better-sqlite3/**"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.png",
+      "signExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Live2D 桌面助手"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "icon": "build/icon.png",
+      "category": "public.app-category.entertainment",
+      "identity": null
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.png",
+      "category": "Utility",
+      "synopsis": "基于 Live2D Cubism 与 LLM Agent 的桌面伴侣应用",
+      "description": "Live2D 桌面助手：渲染动画角色并通过大语言模型实现智能交互"
+    }
+  }
+}

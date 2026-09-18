@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' app: blob: data: l2dmodel:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' app: blob: data: l2dmodel:; media-src 'self' app: blob: data: l2dmodel:; connect-src 'self' app: blob: data: https: http: ws: wss: l2dmodel:; font-src 'self' data:;" />
+    <title>Live2D 桌面助手</title>
+    <!-- Live2D Cubism Core 必须先于渲染层加载 -->
+    <script src="./core/live2dcubismcore.min.js"></script>
+    <!-- Live2D Cubism 2 核心（.moc/.model.json 模型需要，提供 window.Live2D） -->
+    <script src="./core/live2d.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./main.tsx"></script>
+  </body>
+</html>

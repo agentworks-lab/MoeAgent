@@ -1,0 +1,57 @@
+name: Build Installers
+
+# 三平台安装包构建：
+# - Linux (AppImage) 与 Windows (NSIS) 可在 Linux runner 上交叉构建
+# - macOS (DMG) 必须在 macOS runner 上构建（依赖 hdiutil 等系统工具）
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build-linux-win:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build app & installers (Linux + Windows)
+        run: npx electron-builder --linux --win --publish never
+        env:
+          # electron-builder 在 Linux 上通过内置 makensis + UninstallerReader
+          # 交叉构建 Windows 安装包，无需签名证书
+          CI: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installers-linux-win
+          path: |
+            release/*.AppImage
+            release/*.exe
+            release/*.blockmap
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build app & installer (macOS DMG, x64 + arm64)
+        run: npx electron-builder --mac --publish never
+        env:
+          CI: true
+          # 未配置 Apple 签名证书时跳过签名（已在 package.json 中设置 identity: null）
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installers-macos
+          path: |
+            release/*.dmg
+            release/*.blockmap

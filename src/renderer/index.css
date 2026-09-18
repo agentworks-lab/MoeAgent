@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  background: transparent;
+  user-select: none;
+}
+
+/* 浏览器开发模式下提供背景，Electron 透明窗口下保持透明 */
+body.browser-mode {
+  background: radial-gradient(1200px 800px at 70% 20%, #1e293b 0%, #0f172a 55%, #020617 100%);
+}
+
+.glass {
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* 工具栏拖拽改由指针事件手动实现（见 Toolbar），此处不再用原生 app-region，
+   避免原生拖拽吞掉 pointerdown 导致手动移动窗口失效。类名保留供定位/折叠检测。 */
+.titlebar-drag {
+  cursor: move;
+}
+
+.titlebar-no-drag {
+  cursor: default;
+}
+
+.chat-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 3px;
+}
+.chat-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.msg-in {
+  animation: fade-in-up 0.25s ease-out;
+}
+
+@keyframes blink-dot {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.typing-dot {
+  animation: blink-dot 1s infinite;
+}
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+input,
+textarea,
+select {
+  outline: none;
+}
