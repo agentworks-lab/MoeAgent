@@ -1,6 +1,6 @@
 # Live2D 桌面助手
 
-基于 **Electron + Live2D Cubism + LLM Agent** 的跨平台桌面伴侣应用。在桌面上渲染可交互的 Live2D 角色，接入大语言模型实现智能对话，并以**情感标签驱动角色表情与动作**，支持语音合成/识别、多模态图片输入、对话历史管理等功能。
+[Live2D 桌面助手] 基于 **Electron + Live2D Cubism + LLM Agent** 的跨平台桌面伴侣应用。在桌面上渲染可交互的 Live2D 角色，接入大语言模型实现智能对话，并以**情感标签驱动角色表情与动作**，支持语音合成/识别、多模态图片输入、对话历史管理等功能。
 
 技术栈：Electron · React 18 · TypeScript · Vite · Tailwind CSS · pixi-live2d-display（Cubism 4 / Cubism 2 双运行时）· better-sqlite3（FTS5 全文检索）· msedge-tts · openai SDK。
 
