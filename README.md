@@ -16,7 +16,7 @@
 - **外观可调**：角色大小、水平位置、脚底偏移（避免脚被裁切/遮挡）、自动避让对话框。
 
 ### 2. LLM Agent 对话
-- **OpenAI 兼容接口**：支持 OpenAI / DeepSeek / Ollama / vLLM 等任意兼容后端，SSE 流式输出；
+- **OpenAI 兼容接口**：支持 hermes / OpenAI / DeepSeek / Ollama / vLLM 等任意兼容后端，SSE 流式输出；
 - **Function Calling**：通过插件为模型提供工具（如查询时间），模型可调用后继续回答；
 - **演示模式**：未配置 API 时内置 Demo 回复，开箱即可体验完整闭环；
 - **多模态图片输入**：对话可附带图片（选择/粘贴/拖拽，最多 4 张、单张 ≤4MB），以 OpenAI 视觉格式发送；
